@@ -9,6 +9,7 @@ class AuthRepository {
 
   final UserRepository _userRepository;
   final _auth = FirebaseAuth.instance;
+
   final StreamController<String> _errorStream = StreamController();
   Stream<String> get errorStream => _errorStream.stream;
 
@@ -16,7 +17,7 @@ class AuthRepository {
       _auth.authStateChanges().transform<entities.User?>(
           StreamTransformer.fromHandlers(handleData: _transform));
 
-  void _transform(data, sink) async {
+  void _transform(User? data, EventSink sink) async {
     if (data == null) {
       sink.add(null);
     } else {

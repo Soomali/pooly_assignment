@@ -8,7 +8,7 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc(this._repository) : super(AuthInitial()) {
+  AuthBloc(this._repository) : super(UnAuthenticated()) {
     on<ErrorEvent>(_onErrorEvent);
     on<LoginRequest>(_onLogInRequest);
     on<LogInEvent>(_onLogInEvent);
