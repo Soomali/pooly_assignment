@@ -1,19 +1,18 @@
 part of 'entities.dart';
 
-abstract class User extends SignUpUserData {
+abstract class User {
   final DocumentReference id;
+  final String name;
+  final String surname;
+  final int age;
+  final String university;
+  final String department;
 
   User(
       {required this.id,
-      required String name,
-      required String surname,
-      required int age,
-      required String university,
-      required String department})
-      : super(
-            name: name,
-            surname: surname,
-            age: age,
-            university: university,
-            department: department);
+      required this.name,
+      required this.surname,
+      required this.age,
+      required this.university,
+      required this.department});
 }
