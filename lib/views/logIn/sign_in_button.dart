@@ -8,7 +8,11 @@ class SignInButton extends StatelessWidget {
     final state = BlocProvider.of<LoginBloc>(context).state;
     return TextButton.icon(
         onPressed: Formz.validate([state.email, state.password]).isValid
-            ? () {}
+            ? () {
+                context
+                    .read<AuthBloc>()
+                    .add(LoginRequest(state.email.value, state.password.value));
+              }
             : null,
         icon: Icon(Icons.car_rental),
         label: Text('Giriş Yap'));

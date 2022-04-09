@@ -12,7 +12,7 @@ class InputArea extends StatelessWidget {
         return Column(
           children: [
             LogInInput(
-              error: state.email.valid ? null : 'Hatalı',
+              error: state.email.valid || state.email.pure ? null : 'Hatalı',
               hint: 'E mail',
               onTextChanged: (email) {
                 context.read<LoginBloc>().add(EmailChanged(email));
@@ -22,7 +22,9 @@ class InputArea extends StatelessWidget {
               height: 24,
             ),
             LogInInput(
-                error: state.password.valid ? null : 'Hatalı',
+                error: state.password.valid || state.password.pure
+                    ? null
+                    : 'Hatalı',
                 obsecure: true,
                 hint: 'Şifre',
                 onTextChanged: (password) {
