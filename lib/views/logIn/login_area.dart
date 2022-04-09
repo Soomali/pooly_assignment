@@ -7,17 +7,31 @@ class InputArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        LogInInput(
-          hint: 'E mail',
-          onTextChanged: (_) {},
-        ),
-        SizedBox(
-          height: 24,
-        ),
-        LogInInput(obsecure: true, hint: 'Şifre', onTextChanged: (_) {}),
-      ],
+    return BlocBuilder<LoginBloc, LoginState>(
+      builder: (context, state) {
+        return Column(
+          children: [
+            LogInInput(
+              error: state.email.valid ? null : 'Hatalı',
+              hint: 'E mail',
+              onTextChanged: (email) {
+                context.read<LoginBloc>().add(EmailChanged(email));
+              },
+            ),
+            const SizedBox(
+              height: 24,
+            ),
+            LogInInput(
+                error: state.password.valid ? null : 'Hatalı',
+                obsecure: true,
+                hint: 'Şifre',
+                onTextChanged: (password) {
+                  context.read<LoginBloc>().add(PasswordChanged(password));
+                }),
+            SignInButton()
+          ],
+        );
+      },
     );
   }
 }

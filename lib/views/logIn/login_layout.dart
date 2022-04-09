@@ -8,7 +8,7 @@ class LoginLayout extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.05),
       child: Column(
-        children: [LogoWidget(), InputArea(), SignInButton(), SignUpWidget()],
+        children: [LogoWidget(), InputArea(), SignUpWidget()],
       ),
     );
   }

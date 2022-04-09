@@ -11,6 +11,5 @@ class EmailChanged extends LoginEvent {
 
 class PasswordChanged extends LoginEvent {
   final String password;
-
   PasswordChanged(this.password);
 }
