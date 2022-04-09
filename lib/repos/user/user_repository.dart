@@ -25,12 +25,7 @@ class UserRepository {
     });
   }
 
-  Future<String?> createPassenger(SignUpUserData data,String uuid) async {
-    try {
-      _firestore.doc('Passengers/$uuid').set(
-        
-      )
-    }
-    
-  } 
+  Future<void> createPassenger(SignUpUserData data, String uuid) async {
+    _firestore.doc('Passengers/$uuid').set(data.map);
+  }
 }
