@@ -7,6 +7,6 @@ class PasswordInput extends FormzInput<String, PasswordInputError> {
   PasswordInput.pure() : super.pure("");
   @override
   PasswordInputError? validator(String value) {
-    return value.isEmpty && !pure ? PasswordInputError.empty : null;
+    return value.isEmpty ? PasswordInputError.empty : null;
   }
 }
