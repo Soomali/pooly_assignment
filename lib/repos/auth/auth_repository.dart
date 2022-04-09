@@ -29,9 +29,24 @@ class AuthRepository {
     }
   }
 
-  Future<void> SignUp(entities.SignUpUserData data) async {
-    try {} on FirebaseAuthException catch (e) {
+  Future<void> signIn(String email, String password) async {
+    try {
+      _auth.signInWithEmailAndPassword(email: email, password: password);
+    } on FirebaseAuthException catch (e) {
       _errorStream.add(e.code);
     }
   }
+
+  Future<String?> signUp(entities.SignUpUserData data) async {
+    try {
+      final credential = await _auth.createUserWithEmailAndPassword(
+          email: data.email, password: data.password);
+      _userRepository.createPassenger(data, credential.user!.uid);
+      return credential.user!.uid;
+    } on FirebaseAuthException catch (e) {
+      _errorStream.add(e.code);
+    }
+  }
+
+  Future<void> signOut() => _auth.signOut();
 }
