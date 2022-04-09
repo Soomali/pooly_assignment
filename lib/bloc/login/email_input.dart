@@ -7,6 +7,6 @@ class EmailInput extends FormzInput<String, EmailInputError> {
   EmailInput.pure() : super.pure("");
   @override
   EmailInputError? validator(String value) {
-    return value.isEmpty ? EmailInputError.empty : null;
+    return value.isEmpty && !pure ? EmailInputError.empty : null;
   }
 }
