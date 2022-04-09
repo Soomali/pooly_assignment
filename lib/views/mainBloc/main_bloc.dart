@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pooly_test/bloc/auth/auth_bloc.dart';
 import 'package:pooly_test/repos/auth/auth_repository.dart';
 import 'package:pooly_test/views/logIn/login_page.dart';
-import 'package:pooly_test/views/mainBloc/initial_page.dart';
 
 class MainBloc extends StatelessWidget {
   const MainBloc({Key? key}) : super(key: key);
@@ -16,9 +15,7 @@ class MainBloc extends StatelessWidget {
       create: (context) =>
           AuthBloc(RepositoryProvider.of<AuthRepository>(context)),
       child: BlocConsumer<AuthBloc, AuthState>(builder: (context, state) {
-        if (state is AuthInitial) {
-          return const InitialPage();
-        } else if (state is UnAuthenticated) {
+        if (state is UnAuthenticated) {
           log('unauthenticated');
           return LoginPage();
           //TODO change this later.
