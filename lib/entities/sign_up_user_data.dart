@@ -17,4 +17,14 @@ class SignUpUserData {
       required this.age,
       required this.university,
       required this.department});
+
+  Map<String, dynamic> get map {
+    return {
+      'name': name,
+      'surname': surname,
+      'age': age,
+      'university': university,
+      'department': department
+    };
+  }
 }
