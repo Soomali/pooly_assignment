@@ -1,7 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:pooly_test/bloc/auth/auth_bloc.dart';
+import 'package:pooly_test/views/signUp/sign_up.dart';
 
 import '../../bloc/login/login_bloc.dart';
 part 'login_layout.dart';
