@@ -32,7 +32,7 @@ class AuthRepository {
 
   Future<void> signIn(String email, String password) async {
     try {
-      _auth.signInWithEmailAndPassword(email: email, password: password);
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       _errorStream.add(e.code);
     }
