@@ -6,13 +6,28 @@ class SignUpWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RichText(
-        text: const TextSpan(
-            style: TextStyle(color: Colors.black),
+        text: TextSpan(
+            style: const TextStyle(color: Colors.black),
             text: 'Bir hesabın Yok mu? ',
             children: [
           TextSpan(
             text: ' Kaydol',
-            style: TextStyle(color: Colors.blue),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    duration: Duration(days: 1),
+                    content: Row(
+                      children: [
+                        TextButton(onPressed: null, child: Text('Sürücü')),
+                        TextButton(
+                            onPressed: () {
+                              context.read<LoginBloc>();
+                            },
+                            child: Text('Yolcu'))
+                      ],
+                    )));
+              },
+            style: const TextStyle(color: Colors.blue),
           )
         ]));
   }
