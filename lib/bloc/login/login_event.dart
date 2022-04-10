@@ -13,3 +13,5 @@ class PasswordChanged extends LoginEvent {
   final String password;
   PasswordChanged(this.password);
 }
+
+class SignupRequest extends LoginEvent {}

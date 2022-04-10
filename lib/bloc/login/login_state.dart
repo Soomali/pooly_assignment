@@ -32,3 +32,12 @@ class PasswordInputChanged extends LoginState {
   PasswordInputChanged(String password, this.email)
       : password = PasswordInput.dirty(password);
 }
+
+class SignupRequestState extends LoginState {
+  @override
+  final EmailInput email;
+  @override
+  final PasswordInput password;
+
+  SignupRequestState(this.password, this.email);
+}
