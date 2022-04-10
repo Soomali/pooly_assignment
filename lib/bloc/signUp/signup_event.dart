@@ -18,6 +18,11 @@ class SurnameChanged extends SignupEvent {
   SurnameChanged(this.surname);
 }
 
+class PasswordChanged extends SignupEvent {
+  final String password;
+  PasswordChanged(this.password);
+}
+
 class AgeChanged extends SignupEvent {
   final int age;
   AgeChanged(this.age);

@@ -6,13 +6,7 @@ class Driver extends User {
       required String name,
       required String surname,
       required int age,
-      required String university,
-      required String department})
+      required String? photoUrl})
       : super(
-            id: id,
-            name: name,
-            surname: surname,
-            age: age,
-            university: university,
-            department: department);
+            id: id, name: name, surname: surname, age: age, photoUrl: photoUrl);
 }
