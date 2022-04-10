@@ -1,9 +1,11 @@
+import 'dart:developer';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pooly_test/bloc/signUp/signup_bloc.dart';
-
+import '../logIn/login_page.dart';
 part 'sign_up_layout.dart';
-part 'string_input_area.dart';
 part 'int_input_area.dart';
 part 'sign_up_button.dart';
 part 'photo_area.dart';
