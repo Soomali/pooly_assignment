@@ -21,7 +21,7 @@ class SignUpWidget extends StatelessWidget {
                         TextButton(onPressed: null, child: Text('Sürücü')),
                         TextButton(
                             onPressed: () {
-                              context.read<LoginBloc>();
+                              context.read<LoginBloc>().add(SignupRequest());
                             },
                             child: Text('Yolcu'))
                       ],
