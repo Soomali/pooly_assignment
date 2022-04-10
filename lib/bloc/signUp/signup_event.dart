@@ -25,7 +25,7 @@ class PasswordChanged extends SignupEvent {
 
 class AgeChanged extends SignupEvent {
   final int age;
-  AgeChanged(this.age);
+  AgeChanged(String age) : age = age.isEmpty ? 0 : int.parse(age);
 }
 
 class PhotoChanged extends SignupEvent {
@@ -33,6 +33,9 @@ class PhotoChanged extends SignupEvent {
   PhotoChanged(this.photoData);
 }
 
-class PhotoSelect extends SignupEvent {}
+class PhotoSelect extends SignupEvent {
+  final ImageSource source;
+  PhotoSelect({this.source = ImageSource.gallery});
+}
 
 class SignUpSubmitted extends SignupEvent {}
