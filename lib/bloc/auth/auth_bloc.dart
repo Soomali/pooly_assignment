@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:pooly_test/bloc/login/login_bloc.dart';
@@ -13,19 +15,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginRequest>(_onLogInRequest);
     on<LogInEvent>(_onLogInEvent);
     on<LogOutEvent>(_onLogOutEvent);
+    _selfSubscription = _repository.self.listen((event) {
+      if (event == null) {
+        add(LogOutEvent());
+      } else {
+        add(LogInEvent(event));
+      }
+    });
+    _errorSubscription = _repository.errorStream.listen((event) {
+      add(ErrorEvent(event));
+    });
   }
   final AuthRepository _repository;
-  late final _selfSubscription = _repository.self.listen((event) {
-    if (event == null) {
-      add(LogOutEvent());
-    } else {
-      add(LogInEvent(event));
-    }
-  });
+  late final StreamSubscription<User?> _selfSubscription;
 
-  late final _errorSubscription = _repository.errorStream.listen((event) {
-    add(ErrorEvent(event));
-  });
+  late final StreamSubscription<String> _errorSubscription;
 
   void _onLogInRequest(LoginRequest event, Emitter emit) {
     emit(Authenticating());

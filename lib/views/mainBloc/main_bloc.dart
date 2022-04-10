@@ -15,7 +15,7 @@ class MainBloc extends StatelessWidget {
       create: (context) =>
           AuthBloc(RepositoryProvider.of<AuthRepository>(context)),
       child: BlocConsumer<AuthBloc, AuthState>(buildWhen: ((previous, current) {
-        return (current is! AuthError || current is! Authenticating);
+        return (current is! AuthError && current is! Authenticating);
       }), builder: (context, state) {
         if (state is UnAuthenticated) {
           log('unauthenticated');
