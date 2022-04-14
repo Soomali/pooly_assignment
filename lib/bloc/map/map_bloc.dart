@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:pooly_test/repos/map/map_repo.dart';
@@ -9,11 +11,19 @@ part 'map_state.dart';
 
 class MapBloc extends Bloc<MapEvent, MapState> {
   final MapRepository _repository;
+  late final StreamSubscription<Drive?> _streamSubscription;
   MapBloc(this._repository) : super(MapInitial()) {
     on<DriveSelectedEvent>(_onDriveSelectedEvent);
     on<RouteSelectedEvent>(_onRouteSelectedEvent);
     on<RouteCancelledEvent>(_onRouteCancelledEvent);
     on<SearchRequestEvent>(_onSearchRequestEvent);
+    _streamSubscription = _repository.drive.listen((event) {
+      if (event == null && state is! MapInitial) {
+        add(RouteCancelledEvent());
+      } else {
+        //add(DriveSelectedEvent(event, (state)))
+      }
+    });
   }
 
   void _onDriveSelectedEvent(DriveSelectedEvent event, Emitter emit) async {
