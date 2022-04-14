@@ -13,11 +13,23 @@ class MapRepository {
 
   Stream<Drive?> get drive => _driveStream.stream;
 
-  void getDrive(Route route) {}
+  void getDrive(Route route) async  {
+     try {
+     final Future<DetailsResponse?> startDetails =  _places.details.get(route.start.placeId!).then((value) => );
+     final Future<DetailsResponse?> stopDetails = _places.details.get(route.stop.placeId!);
+     final locationRes = await Future.wait<DetailsResponse?>([startDetails,stopDetails]);
+    final startRes = locationRes.first;
+    final stopRes = locationRes.last;
+     
+     
+    } catch(e) {
+      log('$e');
+    }
+  }
 
   void search(String search) async {
     var places = await _places.autocomplete.get(search);
-    places?.predictions?.forEach((elem) => log(
+    places?.predictions?.forEach((elem) =>  log(
         '${elem.id},${elem.description},${elem.placeId}, ${elem.distanceMeters}'));
   }
 }
