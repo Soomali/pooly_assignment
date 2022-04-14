@@ -11,28 +11,43 @@ part 'map_state.dart';
 
 class MapBloc extends Bloc<MapEvent, MapState> {
   final MapRepository _repository;
-  late final StreamSubscription<Drive?> _streamSubscription;
+  late final StreamSubscription<Route?> _streamSubscription;
+  late final StreamSubscription<String?> _errorSubscription;
   MapBloc(this._repository) : super(MapInitial()) {
     on<DriveSelectedEvent>(_onDriveSelectedEvent);
     on<RouteSelectedEvent>(_onRouteSelectedEvent);
     on<RouteCancelledEvent>(_onRouteCancelledEvent);
     on<SearchRequestEvent>(_onSearchRequestEvent);
-    _streamSubscription = _repository.drive.listen((event) {
+    on<_RouteFetchedEvent>(_onRouteFetched);
+    on<_MapErrorEvent>(_onMapErrorEvent);
+    _streamSubscription = _repository.route.listen((event) {
       if (event == null && state is! MapInitial) {
         add(RouteCancelledEvent());
       } else {
-        //add(DriveSelectedEvent(event, (state)))
+        add(_RouteFetchedEvent(event!));
+      }
+    });
+    _errorSubscription = _repository.error.listen((event) {
+      if (event != null) {
+        add(_MapErrorEvent(event));
       }
     });
   }
+  void _onMapErrorEvent(_MapErrorEvent event, Emitter emit) {
+    emit(MapError(event.error));
+  }
 
-  void _onDriveSelectedEvent(DriveSelectedEvent event, Emitter emit) async {
-    emit(MapFetchingDrive());
-    _repository.fetchDriveData(event.route, event.drive);
+  void _onRouteFetched(_RouteFetchedEvent event, Emitter emit) {
+    emit(MapRouteSelected(event.route));
+  }
+
+  void _onDriveSelectedEvent(DriveSelectedEvent event, Emitter emit) {
+    emit(MapDriveSelected(event.drive, event.route));
   }
 
   void _onRouteSelectedEvent(RouteSelectedEvent event, Emitter emit) {
-    emit(MapRouteSelected(event.drives, event.route));
+    emit(MapFetchingRoute());
+    _repository.fetchRouteData(event.start, event.stop, event.startTime);
   }
 
   void _onRouteCancelledEvent(RouteCancelledEvent event, Emitter emit) {
