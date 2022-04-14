@@ -11,29 +11,25 @@ class MainBloc extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AuthBloc>(
-      create: (context) =>
-          AuthBloc(RepositoryProvider.of<AuthRepository>(context)),
-      child: BlocConsumer<AuthBloc, AuthState>(buildWhen: ((previous, current) {
-        return (current is! AuthError && current is! Authenticating);
-      }), builder: (context, state) {
-        if (state is UnAuthenticated) {
-          log('unauthenticated');
-          return LoginPage();
-        } else if (state is Authenticated) {
-          return Container(
-            color: Colors.red,
-          );
-        } else {
-          return Container();
-        }
-      }, listener: (context, state) {
-        if (state is Authenticating) {
-          log('authenticating');
-        } else if (state is AuthError) {
-          log('error: ${state.error}');
-        }
-      }),
-    );
+    return BlocConsumer<AuthBloc, AuthState>(buildWhen: ((previous, current) {
+      return (current is! AuthError && current is! Authenticating);
+    }), builder: (context, state) {
+      if (state is UnAuthenticated) {
+        log('unauthenticated');
+        return LoginPage();
+      } else if (state is Authenticated) {
+        return Container(
+          color: Colors.red,
+        );
+      } else {
+        return Container();
+      }
+    }, listener: (context, state) {
+      if (state is Authenticating) {
+        log('authenticating');
+      } else if (state is AuthError) {
+        log('error: ${state.error}');
+      }
+    });
   }
 }

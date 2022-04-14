@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pooly_test/bloc/auth/auth_bloc.dart';
 import 'package:pooly_test/bloc/signUp/signup_bloc.dart';
+import 'package:pooly_test/entities/entities.dart';
 import '../../repos/signUp/sign_up_repository.dart';
 import '../logIn/login_page.dart';
 part 'sign_up_layout.dart';
@@ -15,6 +17,7 @@ part 'photo_area.dart';
 part 'name_area.dart';
 
 class SignUpPage extends StatelessWidget {
+  // final AuthBloc authBloc;
   const SignUpPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
