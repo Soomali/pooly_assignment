@@ -19,7 +19,9 @@ class UserRepository {
           name: data['name'],
           surname: data['surname'],
           age: data['age'],
-          id: value.reference);
+          id: value.reference,
+          department: '',
+          university: '');
     }
     return null;
   }

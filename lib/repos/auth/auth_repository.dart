@@ -29,12 +29,13 @@ class AuthRepository {
       sink.add(results.firstWhere(
         (element) => element != null,
         orElse: () => entities.Passenger(
-          id: _userRepository.getPassengerRef(uuid),
-          photoUrl: null,
-          age: _lastSignUpUserData!.age,
-          name: _lastSignUpUserData!.name,
-          surname: _lastSignUpUserData!.surname,
-        ),
+            id: _userRepository.getPassengerRef(uuid),
+            photoUrl: null,
+            age: _lastSignUpUserData!.age,
+            name: _lastSignUpUserData!.name,
+            surname: _lastSignUpUserData!.surname,
+            university: '',
+            department: ''),
       ));
     }
   }
