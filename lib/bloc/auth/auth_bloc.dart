@@ -14,6 +14,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<ErrorEvent>(_onErrorEvent);
     on<LoginRequest>(_onLogInRequest);
     on<LogInEvent>(_onLogInEvent);
+    on<SignUpEvent>(_onSignUpEvent);
     on<LogOutEvent>(_onLogOutEvent);
     _selfSubscription = _repository.self.listen((event) {
       if (event == null) {
@@ -31,6 +32,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   late final StreamSubscription<String> _errorSubscription;
 
+  void _onSignUpEvent(SignUpEvent event, Emitter emit) async {
+    emit(Authenticating());
+    await _repository.signUp(event.userData);
+  }
+
   void _onLogInRequest(LoginRequest event, Emitter emit) {
     emit(Authenticating());
     _repository.signIn(event.email, event.password);
@@ -41,7 +47,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void _onLogOutEvent(LogOutEvent event, Emitter emit) {
-    _repository.signOut();
+    //_repository.signOut();
     emit(UnAuthenticated());
   }
 

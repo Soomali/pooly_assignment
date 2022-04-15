@@ -9,8 +9,8 @@ class AuthRepository {
 
   final UserRepository _userRepository;
   final _auth = FirebaseAuth.instance;
-
-  final StreamController<String> _errorStream = StreamController();
+  entities.SignUpUserData? _lastSignUpUserData;
+  final StreamController<String> _errorStream = StreamController.broadcast();
   Stream<String> get errorStream => _errorStream.stream;
 
   Stream<entities.User?> get self =>
@@ -26,7 +26,17 @@ class AuthRepository {
       final driverFuture = _userRepository.getDriver(uuid);
       final results =
           await Future.wait<entities.User?>([passengerFuture, driverFuture]);
-      sink.add(results.firstWhere((element) => element != null));
+      sink.add(results.firstWhere(
+        (element) => element != null,
+        orElse: () => entities.Passenger(
+            id: _userRepository.getPassengerRef(uuid),
+            photoUrl: null,
+            age: _lastSignUpUserData!.age,
+            name: _lastSignUpUserData!.name,
+            surname: _lastSignUpUserData!.surname,
+            university: '',
+            department: ''),
+      ));
     }
   }
 
@@ -40,6 +50,7 @@ class AuthRepository {
 
   Future<String?> signUp(entities.SignUpUserData data) async {
     try {
+      _lastSignUpUserData = data;
       final credential = await _auth.createUserWithEmailAndPassword(
           email: data.email, password: data.password);
       _userRepository.createPassenger(data, credential.user!.uid);

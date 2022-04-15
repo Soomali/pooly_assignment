@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.pooly_test">
+    <uses-permission android:name= "ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name= "ACCESS_COARSE_LOCATION"/>
    <application
         android:label="pooly_test"
         android:name="${applicationName}"
@@ -20,8 +22,6 @@
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
               />
-               <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="AIzaSyCVRQpkJan67dncU5Yl0O45GcfNog5dkTo"/>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -32,5 +32,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        
+               <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyCVRQpkJan67dncU5Yl0O45GcfNog5dkTo"/>
     </application>
 </manifest>

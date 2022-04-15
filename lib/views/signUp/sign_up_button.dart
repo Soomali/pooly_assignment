@@ -18,7 +18,12 @@ class SignUpButton extends StatelessWidget {
               state.surname
             ]).isValid
                 ? () {
-                    log('kaydol');
+                    context.read<AuthBloc>().add(SignUpEvent(SignUpUserData(
+                        email: state.email.value,
+                        password: state.password.value,
+                        name: state.name.value,
+                        surname: state.surname.value,
+                        age: state.age.value)));
                   }
                 : null,
             child: Text('Kaydol'));

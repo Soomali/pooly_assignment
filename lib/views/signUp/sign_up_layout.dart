@@ -28,7 +28,12 @@ class SignUpColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return BlocBuilder<SignupBloc, SignupState>(
+    return BlocConsumer<SignupBloc, SignupState>(
+      listener: ((context, state) {
+        if (state is Authenticated) {
+          Navigator.of(context).pop();
+        }
+      }),
       buildWhen: (previous, current) =>
           current is! PhotoSelectState && current is! PhotoChangedState,
       builder: (context, state) {
