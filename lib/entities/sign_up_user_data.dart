@@ -5,6 +5,8 @@ class SignUpUserData {
   final String password;
   final String name;
   final String surname;
+  final String department;
+  final String university;
   final int age;
   final Uint8List? photo;
   SignUpUserData(
@@ -13,6 +15,8 @@ class SignUpUserData {
       required this.name,
       required this.surname,
       required this.age,
+      this.department = '',
+      this.university = '',
       this.photo});
 
   Map<String, dynamic> get map {
@@ -20,6 +24,8 @@ class SignUpUserData {
       'name': name,
       'surname': surname,
       'age': age,
+      'department': department,
+      'university': university
     };
   }
 }

@@ -11,7 +11,6 @@ class UserRepository {
 
   Future<Passenger?> getPassenger(String uuid) async {
     final value = await getPassengerRef(uuid).get();
-
     if (value.exists) {
       final data = value.data() as Map<String, dynamic>;
       return Passenger(
@@ -20,8 +19,8 @@ class UserRepository {
           surname: data['surname'],
           age: data['age'],
           id: value.reference,
-          department: '',
-          university: '');
+          department: data['department'],
+          university: data['university']);
     }
     return null;
   }

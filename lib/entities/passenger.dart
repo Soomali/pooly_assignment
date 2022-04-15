@@ -63,4 +63,14 @@ class Passenger extends User {
   factory Passenger.random() {
     return _passengers[_random.nextInt(_passengers.length)];
   }
+  Map<String, dynamic> get map {
+    return {
+      'name': name,
+      'surname': surname,
+      'age': age,
+      'photoUrl': photoUrl,
+      'department': department,
+      'university': university
+    };
+  }
 }
