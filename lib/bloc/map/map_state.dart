@@ -18,7 +18,6 @@ class MapDriveSelected extends MapState {
 
 class MapError extends MapState {
   final String error;
-
   MapError(this.error);
 }
 

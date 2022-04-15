@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pooly_test/repos/user/user_repository.dart';
 import '../../bloc/map/map_bloc.dart';
 import '../../repos/map/map_repo.dart';
 
@@ -13,10 +14,11 @@ class MapPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final repo = MapRepository(RepositoryProvider.of<UserRepository>(context));
     return RepositoryProvider(
-      create: (context) => MapRepository(),
+      create: (context) => repo,
       child: BlocProvider(
-        create: (context) => MapBloc(),
+        create: (context) => MapBloc(repo),
         child: const SafeArea(
           child: MapContainer(),
         ),
