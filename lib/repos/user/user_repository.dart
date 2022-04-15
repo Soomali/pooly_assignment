@@ -25,7 +25,7 @@ class UserRepository {
     return null;
   }
 
-  Future<Passenger?> getDriver(String uuid) async {
+  Future<Driver?> getDriver(String uuid) async {
     _firestore.doc('Drivers/$uuid').get().then((value) {
       if (value.exists) {
         return null;
@@ -33,6 +33,8 @@ class UserRepository {
       return null;
     });
   }
+
+  Future<void> createDriver(SignUpUserData data, String uuid) async {}
 
   Future<void> createPassenger(SignUpUserData data, String uuid) async {
     _firestore.doc('Passengers/$uuid').set(data.map);
