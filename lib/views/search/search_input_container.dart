@@ -35,7 +35,6 @@ class SearchInputContainer extends StatelessWidget {
                         onTap: () {
                           context.read<SearchBloc>().add(
                               ToChanged(state.toDestination!.description!));
-                          ;
                         },
                       )
                     : SearchInput(

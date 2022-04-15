@@ -46,11 +46,11 @@ class FromParamChanged extends SearchState {
     this.searchParam,
     bool isToSelected,
     List<AutocompletePrediction> predictions, {
-    Destination? fromDestionation,
-    Destination? toDestionation,
+    Destination? fromDestination,
+    Destination? toDestination,
     bool isFromSelected = false,
   }) : super(status, isFromSelected, isToSelected, predictions,
-            fromDestination: fromDestionation, toDestination: toDestionation);
+            fromDestination: fromDestination, toDestination: toDestination);
 
   @override
   SearchState copyWith(
@@ -67,8 +67,40 @@ class FromParamChanged extends SearchState {
         isToSelected ?? this.isToSelected,
         predictions ?? this.predictions,
         isFromSelected: isFromSelected ?? this.isFromSelected,
-        fromDestionation: fromDestination ?? this.fromDestination,
-        toDestionation: toDestination ?? this.toDestination);
+        fromDestination: fromDestination ?? this.fromDestination,
+        toDestination: toDestination ?? this.toDestination);
+  }
+}
+
+class DateTimeSelectedState extends SearchState {
+  final DateTime dateTime;
+  const DateTimeSelectedState(
+      SearchFetchStatus status,
+      bool isFromSelected,
+      bool isToSelected,
+      List<AutocompletePrediction> predictions,
+      this.dateTime,
+      {Destination? fromDestination,
+      Destination? toDestination})
+      : super(status, isFromSelected, isToSelected, predictions,
+            fromDestination: fromDestination, toDestination: toDestination);
+  @override
+  SearchState copyWith(
+      {List<AutocompletePrediction>? predictions,
+      SearchFetchStatus? status,
+      bool? isToSelected,
+      bool? isFromSelected,
+      Destination? fromDestination,
+      DateTime? dateTime,
+      Destination? toDestination}) {
+    return DateTimeSelectedState(
+        status ?? this.status,
+        isFromSelected ?? this.isFromSelected,
+        isToSelected ?? this.isToSelected,
+        predictions ?? this.predictions,
+        dateTime ?? this.dateTime,
+        fromDestination: fromDestination ?? this.fromDestination,
+        toDestination: toDestination ?? this.toDestination);
   }
 }
 
@@ -79,11 +111,11 @@ class ToParamChanged extends SearchState {
     this.searchParam,
     bool isFromSelected,
     List<AutocompletePrediction> predictions, {
-    Destination? fromDestionation,
-    Destination? toDestionation,
+    Destination? fromDestination,
+    Destination? toDestination,
     bool isToSelected = false,
   }) : super(status, isFromSelected, isToSelected, predictions,
-            fromDestination: fromDestionation, toDestination: toDestionation);
+            fromDestination: fromDestination, toDestination: toDestination);
   @override
   SearchState copyWith(
       {String? searchParam,
@@ -99,8 +131,8 @@ class ToParamChanged extends SearchState {
         isFromSelected ?? this.isFromSelected,
         predictions ?? this.predictions,
         isToSelected: isToSelected ?? this.isToSelected,
-        fromDestionation: fromDestination ?? this.fromDestination,
-        toDestionation: toDestination ?? this.toDestination);
+        fromDestination: fromDestination ?? this.fromDestination,
+        toDestination: toDestination ?? this.toDestination);
   }
 }
 
@@ -112,10 +144,10 @@ class ErrorState extends SearchState {
     bool isToSelected,
     bool isFromSelected,
     List<AutocompletePrediction> predictions, {
-    Destination? fromDestionation,
-    Destination? toDestionation,
+    Destination? fromDestination,
+    Destination? toDestination,
   }) : super(status, isFromSelected, isToSelected, predictions,
-            fromDestination: fromDestionation, toDestination: toDestionation);
+            fromDestination: fromDestination, toDestination: toDestination);
 
   @override
   SearchState copyWith(
@@ -132,7 +164,7 @@ class ErrorState extends SearchState {
         isToSelected ?? this.isToSelected,
         isFromSelected ?? this.isFromSelected,
         predictions ?? this.predictions,
-        fromDestionation: fromDestination ?? this.fromDestination,
-        toDestionation: toDestination ?? this.toDestination);
+        fromDestination: fromDestination ?? this.fromDestination,
+        toDestination: toDestination ?? this.toDestination);
   }
 }

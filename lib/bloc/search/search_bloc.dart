@@ -22,6 +22,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<ToSelected>(_onToSelected);
     on<_ErrorEvent>(_onErrorEvent);
     on<PredictionsFetched>(_onPredictionsFetched);
+    on<DateTimeSelected>(_onDateTimeSelected);
     _predictionSubscription =
         _searchRepository.predictionStream.listen((event) {
       add(PredictionsFetched(event ?? []));
@@ -31,6 +32,13 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   Future<void> close() async {
     super.close();
     _predictionSubscription.cancel();
+  }
+
+  void _onDateTimeSelected(DateTimeSelected event, Emitter emit) {
+    emit(DateTimeSelectedState(
+        state.status, true, true, state.predictions, event.dateTime,
+        fromDestination: state.fromDestination,
+        toDestination: state.toDestination));
   }
 
   void _onPredictionsFetched(PredictionsFetched event, Emitter emit) {
@@ -46,8 +54,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
     emit(FromParamChanged(SearchFetchStatus.fetching, event.key,
         state.isToSelected, state.predictions,
-        toDestionation: state.toDestination,
-        fromDestionation: state.fromDestination));
+        toDestination: state.toDestination,
+        fromDestination: state.fromDestination));
     _searchRepository.searchAutocomplete(event.key);
   }
 
@@ -58,8 +66,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
     emit(ToParamChanged(SearchFetchStatus.fetching, event.key,
         state.isFromSelected, state.predictions,
-        fromDestionation: state.fromDestination,
-        toDestionation: state.toDestination));
+        fromDestination: state.fromDestination,
+        toDestination: state.toDestination));
     _searchRepository.searchAutocomplete(event.key);
   }
 

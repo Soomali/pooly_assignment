@@ -13,6 +13,11 @@ class ToChanged extends SearchEvent {
   ToChanged(this.key);
 }
 
+class DateTimeSelected extends SearchEvent {
+  final DateTime dateTime;
+  DateTimeSelected(this.dateTime);
+}
+
 class ToSelected extends SearchEvent {
   final Destination destination;
 
