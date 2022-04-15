@@ -48,7 +48,8 @@ class FromParamChanged extends SearchState {
     List<AutocompletePrediction> predictions, {
     Destination? fromDestionation,
     Destination? toDestionation,
-  }) : super(status, false, isToSelected, predictions,
+    bool isFromSelected = false,
+  }) : super(status, isFromSelected, isToSelected, predictions,
             fromDestination: fromDestionation, toDestination: toDestionation);
 
   @override
@@ -65,6 +66,7 @@ class FromParamChanged extends SearchState {
         searchParam ?? this.searchParam,
         isToSelected ?? this.isToSelected,
         predictions ?? this.predictions,
+        isFromSelected: isFromSelected ?? this.isFromSelected,
         fromDestionation: fromDestination ?? this.fromDestination,
         toDestionation: toDestination ?? this.toDestination);
   }
@@ -79,7 +81,8 @@ class ToParamChanged extends SearchState {
     List<AutocompletePrediction> predictions, {
     Destination? fromDestionation,
     Destination? toDestionation,
-  }) : super(status, isFromSelected, false, predictions,
+    bool isToSelected = false,
+  }) : super(status, isFromSelected, isToSelected, predictions,
             fromDestination: fromDestionation, toDestination: toDestionation);
   @override
   SearchState copyWith(
@@ -95,6 +98,7 @@ class ToParamChanged extends SearchState {
         searchParam ?? this.searchParam,
         isFromSelected ?? this.isFromSelected,
         predictions ?? this.predictions,
+        isToSelected: isToSelected ?? this.isToSelected,
         fromDestionation: fromDestination ?? this.fromDestination,
         toDestionation: toDestination ?? this.toDestination);
   }

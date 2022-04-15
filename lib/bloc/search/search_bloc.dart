@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:google_place/google_place.dart';
@@ -38,20 +39,36 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   void _onFromChanged(FromChanged event, Emitter emit) {
+    log('fromChanged');
+    if (event.key.isEmpty) {
+      emit(state.copyWith(isFromSelected: false));
+      return;
+    }
     emit(FromParamChanged(SearchFetchStatus.fetching, event.key,
-        state.isToSelected, state.predictions));
+        state.isToSelected, state.predictions,
+        toDestionation: state.toDestination,
+        fromDestionation: state.fromDestination));
     _searchRepository.searchAutocomplete(event.key);
   }
 
   void _onToChanged(ToChanged event, Emitter emit) {
+    if (event.key.isEmpty) {
+      emit(state.copyWith(isToSelected: false));
+      return;
+    }
     emit(ToParamChanged(SearchFetchStatus.fetching, event.key,
-        state.isFromSelected, state.predictions));
+        state.isFromSelected, state.predictions,
+        fromDestionation: state.fromDestination,
+        toDestionation: state.toDestination));
     _searchRepository.searchAutocomplete(event.key);
   }
 
   void _onFromSelected(FromSelected event, Emitter emit) {
-    emit(state.copyWith(
-        isFromSelected: true, fromDestination: event.destination));
+    log('fromSelected');
+    final newState = state.copyWith(
+        isFromSelected: true, fromDestination: event.destination);
+    log('fromSelected ${newState.isFromSelected}');
+    emit(newState);
   }
 
   void _onToSelected(ToSelected event, Emitter emit) {
