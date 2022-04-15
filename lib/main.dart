@@ -19,26 +19,30 @@ void main() async {
 
   runApp(MyApp(
     authRepository: authRep,
+    userRepository: userRep,
   ));
 }
 
 class MyApp extends StatelessWidget {
   final AuthRepository authRepository;
-  const MyApp({Key? key, required this.authRepository}) : super(key: key);
+  final UserRepository userRepository;
+  const MyApp(
+      {Key? key, required this.authRepository, required this.userRepository})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
       value: authRepository,
       child: BlocProvider<AuthBloc>(
         create: (context) => AuthBloc(authRepository),
-        child: MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          home: BlocProvider<AuthBloc>(
-            create: (context) => AuthBloc(authRepository),
-            child: MainBloc(),
+        child: RepositoryProvider.value(
+          value: userRepository,
+          child: MaterialApp(
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+            ),
+            home: MainBloc(),
           ),
         ),
       ),

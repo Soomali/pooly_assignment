@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pooly_test/bloc/auth/auth_bloc.dart';
 import 'package:pooly_test/repos/auth/auth_repository.dart';
 import 'package:pooly_test/views/logIn/login_page.dart';
+import 'package:pooly_test/views/map/map_page.dart';
 
 class MainBloc extends StatelessWidget {
   const MainBloc({Key? key}) : super(key: key);
@@ -18,9 +19,7 @@ class MainBloc extends StatelessWidget {
         log('unauthenticated');
         return LoginPage();
       } else if (state is Authenticated) {
-        return Container(
-          color: Colors.red,
-        );
+        return MapPage();
       } else {
         return Container();
       }

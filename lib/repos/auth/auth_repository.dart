@@ -10,7 +10,7 @@ class AuthRepository {
   final UserRepository _userRepository;
   final _auth = FirebaseAuth.instance;
   entities.SignUpUserData? _lastSignUpUserData;
-  final StreamController<String> _errorStream = StreamController();
+  final StreamController<String> _errorStream = StreamController.broadcast();
   Stream<String> get errorStream => _errorStream.stream;
 
   Stream<entities.User?> get self =>
