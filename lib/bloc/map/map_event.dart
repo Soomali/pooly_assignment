@@ -18,6 +18,12 @@ class DriveSelectedEvent extends MapEvent {
 
 class RouteCancelledEvent extends MapEvent {}
 
+class DriveConfirmedEvent extends MapEvent {
+  final Drive drive;
+  final Route route;
+  DriveConfirmedEvent(this.drive, this.route);
+}
+
 class SearchRequestEvent extends MapEvent {}
 
 class _RouteFetchedEvent extends MapEvent {

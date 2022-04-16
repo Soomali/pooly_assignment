@@ -3,6 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_place/google_place.dart';
+import 'package:intl/date_symbol_data_file.dart';
+import 'package:intl/intl.dart';
 import 'package:pooly_test/entities/entities.dart';
 import 'package:pooly_test/repos/auth/auth_repository.dart';
 import 'package:pooly_test/repos/map/map_repo.dart';
@@ -16,7 +18,6 @@ void main() async {
   await Firebase.initializeApp();
   final UserRepository userRep = UserRepository();
   final AuthRepository authRep = AuthRepository(userRep);
-
   runApp(MyApp(
     authRepository: authRep,
     userRepository: userRep,
@@ -38,6 +39,19 @@ class MyApp extends StatelessWidget {
         child: RepositoryProvider.value(
           value: userRepository,
           child: MaterialApp(
+            darkTheme: ThemeData(
+                colorScheme: ColorScheme(
+                    brightness: Brightness.dark,
+                    primary: Colors.blue.shade100,
+                    onPrimary: Colors.black87,
+                    secondary: Colors.lightGreen.shade100,
+                    onSecondary: Colors.black,
+                    error: Colors.red,
+                    onError: Colors.blueGrey,
+                    background: Colors.black,
+                    onBackground: Colors.black,
+                    surface: Colors.grey.shade800,
+                    onSurface: Colors.blue)),
             title: 'Flutter Demo',
             theme: ThemeData(
               primarySwatch: Colors.blue,

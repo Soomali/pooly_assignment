@@ -9,16 +9,21 @@ class SearchInputDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
-      child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 0.05,
-          decoration: BoxDecoration(
-            border: Border.all(),
-            borderRadius: BorderRadius.all(Radius.circular(16)),
-            color: Colors.grey.shade200,
-          ),
-          child: Center(child: Text(text))),
-    );
+        onTap: onTap,
+        child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.05,
+            decoration: BoxDecoration(
+              border: Border.all(),
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+            ),
+            child: Row(children: [
+              Flexible(
+                  child: Text(
+                text,
+                textAlign: TextAlign.center,
+              ))
+            ])));
   }
 }

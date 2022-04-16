@@ -1,12 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:pooly_test/repos/user/user_repository.dart';
 import 'package:pooly_test/views/search/search_page.dart';
 import '../../bloc/map/map_bloc.dart';
+import '../../entities/entities.dart';
 import '../../repos/map/map_repo.dart';
 import 'dart:async';
-
+import '../../entities/entities.dart' as ent;
 part 'drive_details.dart';
 part 'drive_container.dart';
 part 'drive_area.dart';
@@ -24,9 +28,17 @@ class MapPage extends StatelessWidget {
         create: (context) => MapBloc(repo),
         child: SafeArea(
           child: BlocBuilder<MapBloc, MapState>(
+            buildWhen: ((previous, current) =>
+                !(previous is MapInitial && current is SearchRequested)),
             builder: (context, state) {
+              log('mapStateRunTimeType: ${state.runtimeType}');
+              log('drives if any: ${state is MapRouteSelected ? state.route.drives.length : "yok"}');
               if (state is MapInitial || state is SearchRequested) {
                 return SearchPage();
+              }
+              if (state is MapFetchingRoute) {
+                return Scaffold(
+                    body: Center(child: CircularProgressIndicator()));
               }
               return MapContainer();
             },

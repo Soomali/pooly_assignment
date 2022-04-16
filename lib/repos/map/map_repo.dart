@@ -3,7 +3,9 @@ import 'dart:developer' as dev;
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_place/google_place.dart';
 import 'package:pooly_test/repos/user/user_repository.dart';
 
@@ -19,6 +21,7 @@ class MapRepository {
   final StreamController<Route?> _routeStream = StreamController();
   final StreamController<String?> _errorStream = StreamController();
   final UserRepository _userRepository;
+  final PolylinePoints polylinePoints = PolylinePoints();
 
   Stream<Route?> get route => _routeStream.stream;
   Stream<String?> get error => _errorStream.stream;
@@ -35,7 +38,7 @@ class MapRepository {
       final startRes = locationRes.first!.result!.geometry!.location!;
       final stopRes = locationRes.last!.result!.geometry!.location!;
 
-      final distance = _calculateDistanceAsMeters(
+      final distance = calculateDistanceAsKilometers(
           startRes.lat, startRes.lng, stopRes.lat, stopRes.lng);
       final Route route = Route(start, stop, startTime,
           distanceMeters: distance,
@@ -74,8 +77,9 @@ class MapRepository {
       final data = i.data() as Map<String, dynamic>;
       final points =
           (data['stop'] as Map<String, dynamic>)['geopoint'] as GeoPoint;
-      if (_calculateDistanceAsMeters(
-              points.latitude, points.longitude, stop.lat, stop.lng) <
+      if (calculateDistanceAsKilometers(
+                  points.latitude, points.longitude, stop.lat, stop.lng) *
+              1000 <
           radius) {
         final passengers = <Passenger>[];
         for (var item in data['passengers'] as List<dynamic>) {
@@ -88,24 +92,41 @@ class MapRepository {
             .getDriver((data['driver'] as DocumentReference).id);
         final start =
             (data['start'] as Map<String, dynamic>)['geopoint'] as GeoPoint;
+        PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+          apiKey,
+          PointLatLng(start.latitude, start.longitude),
+          PointLatLng(points.latitude, points.longitude),
+          travelMode: TravelMode.driving,
+        );
+        List<LatLng> polylineCoordinates = [];
+
+        if (result.points.isNotEmpty) {
+          result.points.forEach((PointLatLng point) {
+            polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+          });
+        } else {
+          print(result.errorMessage);
+        }
+
         drives.add(Drive(
             passengers,
             driver ?? Driver.random(),
             data['price'],
             (data['startTime'] as Timestamp).toDate(),
             GeoFirePoint(start.latitude, start.longitude),
-            GeoFirePoint(points.latitude, points.longitude)));
+            GeoFirePoint(points.latitude, points.longitude),
+            polylineCoordinates));
       }
     }
     sink.add(drives);
   }
 
-  double _calculateDistanceAsMeters(lat1, lon1, lat2, lon2) {
+  static double calculateDistanceAsKilometers(lat1, lon1, lat2, lon2) {
     var p = 0.017453292519943295;
     var a = 0.5 -
         cos((lat2 - lat1) * p) / 2 +
         cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2;
-    return 12.742 * asin(sqrt(a));
+    return 12742 * asin(sqrt(a));
   }
 
   void search(String search) async {
