@@ -21,7 +21,7 @@ class LoginPage extends StatelessWidget {
     return BlocProvider(
       create: (_) => LoginBloc(),
       child: SafeArea(
-        child: Scaffold(body: LoginLayout()),
+        child: Scaffold(body: SingleChildScrollView(child: LoginLayout())),
       ),
     );
   }

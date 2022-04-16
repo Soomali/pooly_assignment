@@ -6,29 +6,26 @@ class SignUpWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RichText(
-        text: TextSpan(
-            style: const TextStyle(color: Colors.black),
-            text: 'Bir hesabın Yok mu? ',
-            children: [
-          TextSpan(
-            text: ' Kaydol',
-            recognizer: TapGestureRecognizer()
-              ..onTap = () {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    duration: Duration(days: 1),
-                    content: Row(
-                      children: [
-                        TextButton(onPressed: null, child: Text('Sürücü')),
-                        TextButton(
-                            onPressed: () {
-                              context.read<LoginBloc>().add(SignupRequest());
-                            },
-                            child: Text('Yolcu'))
-                      ],
-                    )));
-              },
-            style: const TextStyle(color: Colors.blue),
-          )
-        ]));
+        text: TextSpan(text: 'Bir hesabın Yok mu? ', children: [
+      TextSpan(
+        text: ' Kaydol',
+        recognizer: TapGestureRecognizer()
+          ..onTap = () {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                duration: Duration(days: 1),
+                content: Row(
+                  children: [
+                    TextButton(onPressed: null, child: Text('Sürücü')),
+                    TextButton(
+                        onPressed: () {
+                          context.read<LoginBloc>().add(SignupRequest());
+                        },
+                        child: Text('Yolcu'))
+                  ],
+                )));
+          },
+        style: const TextStyle(color: Colors.blue),
+      )
+    ]));
   }
 }

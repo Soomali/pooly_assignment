@@ -51,7 +51,23 @@ class MyApp extends StatelessWidget {
                     background: Colors.black,
                     onBackground: Colors.black,
                     surface: Colors.grey.shade800,
-                    onSurface: Colors.blue)),
+                    onSurface: Colors.blue),
+                textButtonTheme: TextButtonThemeData(
+                    style: ButtonStyle(backgroundColor:
+                        MaterialStateProperty.resolveWith((states) {
+                  if (states.contains(MaterialState.disabled)) {
+                    return Colors.grey.shade900;
+                  } else {
+                    return Colors.blue;
+                  }
+                }), foregroundColor:
+                        MaterialStateProperty.resolveWith((states) {
+                  if (states.contains(MaterialState.disabled)) {
+                    return Colors.grey;
+                  } else {
+                    return Colors.white;
+                  }
+                })))),
             title: 'Flutter Demo',
             theme: ThemeData(
               primarySwatch: Colors.blue,

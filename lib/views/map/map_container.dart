@@ -42,6 +42,8 @@ class _MapContainerState extends State<MapContainer> {
                     position:
                         LatLng(drive.stop.latitude, drive.stop.longitude)),
               };
+            } else {
+              markers = {};
             }
           } else if (state is MapDriveSelected) {
             polyLines = state.polyLineCoordinates;

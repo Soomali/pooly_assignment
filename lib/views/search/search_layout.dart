@@ -6,6 +6,13 @@ class SearchLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              context.read<AuthBloc>().add(LogOutEvent());
+            },
+            icon: Icon(Icons.adaptive.arrow_back)),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

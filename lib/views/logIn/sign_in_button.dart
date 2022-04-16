@@ -14,7 +14,10 @@ class SignInButton extends StatelessWidget {
                     .add(LoginRequest(state.email.value, state.password.value));
               }
             : null,
-        icon: Icon(Icons.car_rental),
-        label: Text('Giriş Yap'));
+        icon: const Icon(Icons.car_rental),
+        label: const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text('Giriş Yap'),
+        ));
   }
 }
