@@ -42,12 +42,12 @@ class MyApp extends StatelessWidget {
             darkTheme: ThemeData(
                 colorScheme: ColorScheme(
                     brightness: Brightness.dark,
-                    primary: Colors.blue.shade100,
-                    onPrimary: Colors.black87,
+                    primary: Colors.blue,
+                    onPrimary: Colors.grey.shade900,
                     secondary: Colors.lightGreen.shade100,
                     onSecondary: Colors.black,
                     error: Colors.red,
-                    onError: Colors.blueGrey,
+                    onError: Colors.red,
                     background: Colors.black,
                     onBackground: Colors.black,
                     surface: Colors.grey.shade800,

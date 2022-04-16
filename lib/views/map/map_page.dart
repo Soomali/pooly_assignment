@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:pooly_test/repos/user/user_repository.dart';
+import 'package:pooly_test/views/driveDetails/drive_details.dart';
 import 'package:pooly_test/views/search/search_page.dart';
 import '../../bloc/map/map_bloc.dart';
 import '../../entities/entities.dart';
@@ -13,7 +14,6 @@ import 'dart:async';
 import '../../entities/entities.dart' as ent;
 part 'drive_details.dart';
 part 'drive_container.dart';
-part 'drive_area.dart';
 part 'map_container.dart';
 
 class MapPage extends StatelessWidget {
@@ -27,7 +27,13 @@ class MapPage extends StatelessWidget {
       child: BlocProvider(
         create: (context) => MapBloc(repo),
         child: SafeArea(
-          child: BlocBuilder<MapBloc, MapState>(
+          child: BlocConsumer<MapBloc, MapState>(
+            listener: (context, state) {
+              if (state is MapDriveConfirmed) {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => DriveDetails(drive: state.drive)));
+              }
+            },
             buildWhen: ((previous, current) =>
                 !(previous is MapInitial && current is SearchRequested)),
             builder: (context, state) {

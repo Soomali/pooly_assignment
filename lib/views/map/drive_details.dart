@@ -12,24 +12,9 @@ class DriveWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text('Sürücü: ${drive.driver.name} ${drive.driver.surname}'),
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(Icons.person),
-                Text('${drive.passengers.length}'),
-              ],
-            ),
-            SizedBox(width: MediaQuery.of(context).size.width * 0.06),
-            Row(
-              children: [
-                Text('${drive.price / (drive.passengers.length + 1)}'),
-                Icon(Icons.attach_money),
-              ],
-            )
-          ],
+        DrivePriceData(
+          passengerCount: drive.passengers.length,
+          price: drive.price / (drive.passengers.length + 1),
         ),
         Text('${DateFormat('dd MMM HH:mm ').format(drive.startTime)}'),
       ],
@@ -57,6 +42,41 @@ class DriveWidget extends StatelessWidget {
               : child,
         ),
       ),
+    );
+  }
+}
+
+class DrivePriceData extends StatelessWidget {
+  final Widget? seperator;
+  const DrivePriceData(
+      {Key? key,
+      required this.price,
+      required this.passengerCount,
+      this.seperator})
+      : super(key: key);
+  final double price;
+  final int passengerCount;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(Icons.person),
+            Text('$passengerCount'),
+          ],
+        ),
+        seperator ?? SizedBox(width: MediaQuery.of(context).size.width * 0.06),
+        Row(
+          children: [
+            Text(price.toStringAsFixed(2)),
+            Icon(Icons.attach_money),
+          ],
+        )
+      ],
     );
   }
 }
