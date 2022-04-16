@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:meta/meta.dart';
 import 'package:pooly_test/repos/map/map_repo.dart';
 
@@ -20,6 +21,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<SearchRequestEvent>(_onSearchRequestEvent);
     on<_RouteFetchedEvent>(_onRouteFetched);
     on<_MapErrorEvent>(_onMapErrorEvent);
+    on<DriveConfirmedEvent>(_onDriveConfirmed);
     _streamSubscription = _repository.route.listen((event) {
       if (event == null && state is! MapInitial) {
         add(RouteCancelledEvent());
@@ -33,6 +35,10 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       }
     });
   }
+  void _onDriveConfirmed(DriveConfirmedEvent event, Emitter emit) {
+    emit(MapDriveConfirmed(event.drive, event.route));
+  }
+
   void _onMapErrorEvent(_MapErrorEvent event, Emitter emit) {
     emit(MapError(event.error));
   }
@@ -55,6 +61,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   }
 
   void _onSearchRequestEvent(SearchRequestEvent event, Emitter emit) {
-    emit(SearchRequested());
+    emit(SearchRequested(event.route));
   }
 }

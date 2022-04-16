@@ -29,6 +29,7 @@ class SignUpPhotoArea extends StatelessWidget {
                   onPressed: () {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextButton(
                             onPressed: () {
@@ -39,6 +40,9 @@ class SignUpPhotoArea extends StatelessWidget {
                                   .add(PhotoSelect(source: ImageSource.camera));
                             },
                             child: Text('Kamera')),
+                        SizedBox(
+                          width: 24,
+                        ),
                         TextButton(
                             onPressed: () {
                               ScaffoldMessenger.of(context)

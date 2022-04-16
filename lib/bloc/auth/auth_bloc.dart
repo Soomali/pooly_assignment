@@ -16,6 +16,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LogInEvent>(_onLogInEvent);
     on<SignUpEvent>(_onSignUpEvent);
     on<LogOutEvent>(_onLogOutEvent);
+    on<LogOutRequest>(_onLogOutRequest);
     _selfSubscription = _repository.self.listen((event) {
       if (event == null) {
         add(LogOutEvent());
@@ -46,8 +47,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthError(event.errorCode));
   }
 
+  void _onLogOutRequest(LogOutRequest event, Emitter emit) {
+    _repository.signOut();
+    emit(Authenticating());
+  }
+
   void _onLogOutEvent(LogOutEvent event, Emitter emit) {
-    //_repository.signOut();
     emit(UnAuthenticated());
   }
 

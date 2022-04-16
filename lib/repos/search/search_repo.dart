@@ -13,7 +13,11 @@ class SearchRepository {
       _predictionStream.stream;
   void searchAutocomplete(String search) async {
     _place.autocomplete
-        .get(search)
+        .get(
+          search,
+          components: <Component>[Component('country', 'tr')],
+          radius: 50000,
+        )
         .then((value) => _predictionStream.add(value?.predictions ?? []));
   }
 }

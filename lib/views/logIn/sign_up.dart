@@ -7,8 +7,8 @@ class SignUpWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return RichText(
         text: TextSpan(
-            style: const TextStyle(color: Colors.black),
-            text: 'Bir hesabın Yok mu? ',
+            style: TextStyle(color: Theme.of(context).colorScheme.onBackground),
+            text: 'Bir hesabın yok mu? ',
             children: [
           TextSpan(
             text: ' Kaydol',
@@ -17,8 +17,12 @@ class SignUpWidget extends StatelessWidget {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     duration: Duration(days: 1),
                     content: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextButton(onPressed: null, child: Text('Sürücü')),
+                        SizedBox(
+                          width: 24,
+                        ),
                         TextButton(
                             onPressed: () {
                               context.read<LoginBloc>().add(SignupRequest());

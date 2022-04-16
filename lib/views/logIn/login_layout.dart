@@ -7,8 +7,9 @@ class LoginLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+
         if (state is SignupRequestState) {
-          ScaffoldMessenger.of(context).removeCurrentSnackBar();
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (_) => SignUpPage()));
         }
@@ -17,7 +18,14 @@ class LoginLayout extends StatelessWidget {
         padding:
             EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.05),
         child: Column(
-          children: const [LogoWidget(), InputArea(), SignUpWidget()],
+          children: const [
+            LogoWidget(),
+            InputArea(),
+            SizedBox(
+              height: 12,
+            ),
+            SignUpWidget()
+          ],
         ),
       ),
     );

@@ -24,6 +24,8 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     on<PhotoChanged>(_onPhotoChangedEvent);
     on<PhotoSelect>(_onPhotoSelectEvent);
     on<EmailChanged>(_onMailChangedEvent);
+    on<DepartmentChanged>(_onDepartmentChangedEvent);
+    on<UniversityChanged>(_onUniversityChangedEvent);
     on<PasswordChanged>(_onPasswordChangedEvent);
     _fileStream = _repository.imageStream.listen((event) async {
       add(PhotoChanged(await event?.readAsBytes()));
@@ -32,37 +34,61 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
 
   void _onAgeChangedEvent(AgeChanged event, Emitter emit) {
     emit(AgeChangedState(state.email, state.name, state.surname, event.age,
-        state.photo, state.password));
+        state.photo, state.password, state.university, state.department));
   }
 
   void _onNameChangedEvent(NameChanged event, Emitter emit) {
     emit(NameChangedState(state.email, event.name, state.surname, state.age,
-        state.photo, state.password));
+        state.photo, state.password, state.university, state.department));
   }
 
   void _onMailChangedEvent(EmailChanged event, Emitter emit) {
     emit(EmailChangedState(event.email, state.name, state.surname, state.age,
-        state.photo, state.password));
+        state.photo, state.password, state.university, state.department));
   }
 
   void _onSurnameChangedEvent(SurnameChanged event, Emitter emit) {
     emit(SurnameChangedState(state.email, state.name, event.surname, state.age,
-        state.photo, state.password));
+        state.photo, state.password, state.university, state.department));
   }
 
   void _onPhotoChangedEvent(PhotoChanged event, Emitter emit) {
     emit(PhotoChangedState(state.email, state.name, state.surname, state.age,
-        event.photoData, state.password));
+        event.photoData, state.password, state.university, state.department));
   }
 
   void _onPhotoSelectEvent(PhotoSelect event, Emitter emit) async {
     emit(PhotoSelectState(state.email, state.name, state.surname, state.age,
-        state.photo, state.password));
+        state.photo, state.password, state.university, state.department));
     _repository.getImage(event.source);
   }
 
   void _onPasswordChangedEvent(PasswordChanged event, Emitter emit) {
     emit(PasswordChangedState(state.email, state.name, state.surname, state.age,
-        state.photo, event.password));
+        state.photo, event.password, state.university, state.department));
+  }
+
+  void _onDepartmentChangedEvent(DepartmentChanged event, Emitter emit) {
+    emit(DepartmentChangedState(
+        state.email,
+        state.name,
+        state.surname,
+        state.age,
+        state.photo,
+        state.password,
+        state.university,
+        event.department));
+  }
+
+  void _onUniversityChangedEvent(UniversityChanged event, Emitter emit) {
+    emit(UniversityChangedState(
+        state.email,
+        state.name,
+        state.surname,
+        state.age,
+        state.photo,
+        state.password,
+        event.university,
+        state.department));
   }
 }

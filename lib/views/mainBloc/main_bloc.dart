@@ -13,7 +13,7 @@ class MainBloc extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(buildWhen: ((previous, current) {
-      return (current is! AuthError && current is! Authenticating);
+      return (current is! AuthError);
     }), builder: (context, state) {
       if (state is UnAuthenticated) {
         log('unauthenticated');
@@ -21,7 +21,18 @@ class MainBloc extends StatelessWidget {
       } else if (state is Authenticated) {
         return MapPage();
       } else {
-        return Container();
+        return SafeArea(
+          child: Scaffold(
+            body: Column(
+              children: [
+                Image(image: AssetImage('assets/images/logo.png')),
+                Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ],
+            ),
+          ),
+        );
       }
     }, listener: (context, state) {
       if (state is Authenticating) {

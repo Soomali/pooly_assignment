@@ -30,6 +30,9 @@ class InputArea extends StatelessWidget {
                 onTextChanged: (password) {
                   context.read<LoginBloc>().add(PasswordChanged(password));
                 }),
+            const SizedBox(
+              height: 12,
+            ),
             SignInButton()
           ],
         );
