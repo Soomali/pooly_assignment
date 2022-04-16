@@ -9,7 +9,7 @@ class SearchLayout extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              context.read<AuthBloc>().add(LogOutEvent());
+              context.read<AuthBloc>().add(LogOutRequest());
             },
             icon: Icon(Icons.adaptive.arrow_back)),
       ),

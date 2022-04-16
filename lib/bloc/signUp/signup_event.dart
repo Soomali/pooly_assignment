@@ -38,4 +38,15 @@ class PhotoSelect extends SignupEvent {
   PhotoSelect({this.source = ImageSource.gallery});
 }
 
+class DepartmentChanged extends SignupEvent {
+  final String department;
+
+  DepartmentChanged(this.department);
+}
+
+class UniversityChanged extends SignupEvent {
+  final String university;
+  UniversityChanged(this.university);
+}
+
 class SignUpSubmitted extends SignupEvent {}

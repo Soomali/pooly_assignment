@@ -5,6 +5,8 @@ abstract class AuthEvent {}
 
 class LogOutEvent extends AuthEvent {}
 
+class LogOutRequest extends AuthEvent {}
+
 class SignUpEvent extends AuthEvent {
   SignUpEvent(this.userData);
   final SignUpUserData userData;
