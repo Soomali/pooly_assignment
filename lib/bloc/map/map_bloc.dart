@@ -61,6 +61,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   }
 
   void _onSearchRequestEvent(SearchRequestEvent event, Emitter emit) {
-    emit(SearchRequested());
+    emit(SearchRequested(event.route));
   }
 }

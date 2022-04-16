@@ -15,9 +15,9 @@ class SearchInputDisplay extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.05,
             decoration: BoxDecoration(
-              border: Border.all(),
-              borderRadius: BorderRadius.all(Radius.circular(16)),
-            ),
+                border: Border.all(),
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+                color: Theme.of(context).colorScheme.onPrimary),
             child: Row(children: [
               Flexible(
                   child: Text(

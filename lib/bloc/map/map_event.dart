@@ -24,7 +24,11 @@ class DriveConfirmedEvent extends MapEvent {
   DriveConfirmedEvent(this.drive, this.route);
 }
 
-class SearchRequestEvent extends MapEvent {}
+class SearchRequestEvent extends MapEvent {
+  final Route route;
+
+  SearchRequestEvent(this.route);
+}
 
 class _RouteFetchedEvent extends MapEvent {
   final Route route;

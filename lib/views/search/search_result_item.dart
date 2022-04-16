@@ -12,9 +12,9 @@ class SearchResultItem extends StatelessWidget {
         final bloc = context.read<SearchBloc>();
         final state = bloc.state;
         if (state is FromParamChanged) {
-          bloc.add(FromSelected(Destination.fromPrediction(prediction)));
+          bloc.add(FromSelected(ent.Destination.fromPrediction(prediction)));
         } else {
-          bloc.add(ToSelected(Destination.fromPrediction(prediction)));
+          bloc.add(ToSelected(ent.Destination.fromPrediction(prediction)));
         }
       },
       child: Container(

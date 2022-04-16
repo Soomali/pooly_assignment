@@ -39,10 +39,11 @@ class MapPage extends StatelessWidget {
             builder: (context, state) {
               log('mapStateRunTimeType: ${state.runtimeType}');
               log('drives if any: ${state is MapRouteSelected ? state.route.drives.length : "yok"}');
-              if (state is MapInitial || state is SearchRequested) {
+              if (state is MapInitial) {
                 return SearchPage();
-              }
-              if (state is MapFetchingRoute) {
+              } else if (state is SearchRequested) {
+                return SearchPage(route: state.route);
+              } else if (state is MapFetchingRoute) {
                 return Scaffold(
                     body: Center(child: CircularProgressIndicator()));
               }

@@ -15,7 +15,13 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final SearchRepository _searchRepository;
   late final StreamSubscription<List<AutocompletePrediction>?>
       _predictionSubscription;
-  SearchBloc(this._searchRepository) : super(SearchInitial()) {
+  final Route? route;
+  SearchBloc(this._searchRepository, {this.route})
+      : super(route == null
+            ? SearchInitial()
+            : DateTimeSelectedState(
+                SearchFetchStatus.fetched, true, true, [], route.startTime,
+                fromDestination: route.start, toDestination: route.stop)) {
     on<FromChanged>(_onFromChanged);
     on<ToChanged>(_onToChanged);
     on<FromSelected>(_onFromSelected);

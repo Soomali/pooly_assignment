@@ -59,6 +59,10 @@ class MapError extends MapState {
   MapError(this.error);
 }
 
-class SearchRequested extends MapState {}
+class SearchRequested extends MapState {
+  final Route route;
+
+  SearchRequested(this.route);
+}
 
 class MapFetchingRoute extends MapState {}

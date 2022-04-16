@@ -61,15 +61,48 @@ class _MapContainerState extends State<MapContainer> {
             children: [
               SizedBox(
                 height: MediaQuery.of(context).size.height * .82,
-                child: GoogleMap(
-                  markers: markers,
-                  polylines: createPolylines(polyLines),
-                  myLocationEnabled: true,
-                  mapType: MapType.normal,
-                  initialCameraPosition: position,
-                  onMapCreated: (GoogleMapController controller) {
-                    _controller.complete(controller);
-                  },
+                child: Stack(
+                  children: [
+                    GoogleMap(
+                      markers: markers,
+                      polylines: createPolylines(polyLines),
+                      myLocationEnabled: true,
+                      mapType: MapType.normal,
+                      initialCameraPosition: position,
+                      onMapCreated: (GoogleMapController controller) {
+                        _controller.complete(controller);
+                      },
+                    ),
+                    Positioned(
+                      top: 20,
+                      right: 20,
+                      left: 20,
+                      child: Column(
+                        children: [
+                          SearchInputDisplay(
+                              text: (state as MapDataState)
+                                  .route
+                                  .start
+                                  .description!,
+                              onTap: () {
+                                context
+                                    .read<MapBloc>()
+                                    .add(SearchRequestEvent(state.route));
+                              }),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          SearchInputDisplay(
+                              text: (state).route.stop.description!,
+                              onTap: () {
+                                context
+                                    .read<MapBloc>()
+                                    .add(SearchRequestEvent(state.route));
+                              })
+                        ],
+                      ),
+                    )
+                  ],
                 ),
               ),
               if (state is MapDataState)
