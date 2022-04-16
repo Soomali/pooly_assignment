@@ -39,17 +39,20 @@ class DrivePage extends StatelessWidget {
           seperator,
           Align(
             alignment: Alignment.center,
-            child: Column(
-              children: [
-                ...List.generate(
-                    4,
-                    (index) => DrivePriceData(
-                          passengerCount: index + 1,
-                          price: drive.price / (index + 1),
-                          seperator: SizedBox(
-                              width: MediaQuery.of(context).size.width * .4),
-                        )),
-              ],
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * .16),
+              child: Column(
+                children: [
+                  ...List.generate(
+                      4,
+                      (index) => DrivePriceData(
+                            passengerCount: index + 1,
+                            price: drive.price / (index + 1),
+                            seperator: Expanded(child: Text('')),
+                          )),
+                ],
+              ),
             ),
           ),
           seperator,

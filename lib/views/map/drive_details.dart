@@ -30,16 +30,22 @@ class DriveWidget extends StatelessWidget {
       child: Card(
         color: isSelected ? Theme.of(context).colorScheme.onSurface : null,
         elevation: 1.6,
-        child: DefaultTextStyle(
-          style: isSelected
-              ? TextStyle(color: Theme.of(context).colorScheme.secondary)
-              : TextStyle(color: Theme.of(context).colorScheme.primary),
-          child: context.watch<MapBloc>().state is MapDriveConfirmed
-              ? Hero(
-                  tag: 'driveSelected',
-                  child: child,
-                )
-              : child,
+        child: IconTheme(
+          data: IconThemeData(
+              color: isSelected
+                  ? Theme.of(context).colorScheme.secondary
+                  : Theme.of(context).colorScheme.primary),
+          child: DefaultTextStyle(
+            style: isSelected
+                ? TextStyle(color: Theme.of(context).colorScheme.secondary)
+                : TextStyle(color: Theme.of(context).colorScheme.primary),
+            child: context.watch<MapBloc>().state is MapDriveConfirmed
+                ? Hero(
+                    tag: 'driveSelected',
+                    child: child,
+                  )
+                : child,
+          ),
         ),
       ),
     );

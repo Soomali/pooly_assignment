@@ -39,19 +39,23 @@ class MyApp extends StatelessWidget {
         child: RepositoryProvider.value(
           value: userRepository,
           child: MaterialApp(
+            themeMode: ThemeMode.system,
             darkTheme: ThemeData(
+                iconTheme: IconThemeData(color: Colors.white30),
                 colorScheme: ColorScheme(
                     brightness: Brightness.dark,
                     primary: Colors.blue,
                     onPrimary: Colors.grey.shade900,
-                    secondary: Colors.lightGreen.shade100,
+                    secondary: Colors.black,
                     onSecondary: Colors.black,
                     error: Colors.red,
                     onError: Colors.red,
                     background: Colors.black,
-                    onBackground: Colors.black,
+                    onBackground: Colors.white,
                     surface: Colors.grey.shade800,
-                    onSurface: Colors.blue),
+                    onSurface: Colors.grey.shade200),
+                snackBarTheme:
+                    SnackBarThemeData(backgroundColor: Colors.grey.shade800),
                 textButtonTheme: TextButtonThemeData(
                     style: ButtonStyle(backgroundColor:
                         MaterialStateProperty.resolveWith((states) {
@@ -70,8 +74,36 @@ class MyApp extends StatelessWidget {
                 })))),
             title: 'Flutter Demo',
             theme: ThemeData(
-              primarySwatch: Colors.blue,
-            ),
+                snackBarTheme:
+                    SnackBarThemeData(backgroundColor: Colors.grey.shade200),
+                colorScheme: ColorScheme(
+                    brightness: Brightness.light,
+                    primary: Colors.blue,
+                    onPrimary: Colors.grey.shade100,
+                    secondary: Colors.white,
+                    onSecondary: Colors.white,
+                    error: Colors.red,
+                    onError: Colors.red,
+                    background: Colors.white,
+                    onBackground: Colors.black,
+                    surface: Colors.grey.shade200,
+                    onSurface: Colors.blue.shade700),
+                textButtonTheme: TextButtonThemeData(
+                    style: ButtonStyle(backgroundColor:
+                        MaterialStateProperty.resolveWith((states) {
+                  if (states.contains(MaterialState.disabled)) {
+                    return Colors.grey.shade100;
+                  } else {
+                    return Colors.blue;
+                  }
+                }), foregroundColor:
+                        MaterialStateProperty.resolveWith((states) {
+                  if (states.contains(MaterialState.disabled)) {
+                    return Colors.grey;
+                  } else {
+                    return Colors.white;
+                  }
+                })))),
             home: MainBloc(),
           ),
         ),

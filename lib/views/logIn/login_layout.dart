@@ -7,8 +7,9 @@ class LoginLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+
         if (state is SignupRequestState) {
-          ScaffoldMessenger.of(context).removeCurrentSnackBar();
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (_) => SignUpPage()));
         }
